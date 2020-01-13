@@ -56,25 +56,40 @@ namespace WebAPISample.Controllers
             return Ok();
         }
 
-            // PUT api/values/5
-            public IHttpActionResult Put(int id, [FromBody]string value)
-            {
+        // PUT api/values/5
+        public IHttpActionResult Put(int id, [FromBody]Movies value)
+        {
             // Update movie in db logic
             if (!ModelState.IsValid)
             {
                 return BadRequest("Not a valid input");
             }
-            
-            }
-
-            // DELETE api/values/5
-            public void Delete(int id)
+            using (var context = new ApplicationDbContext())
             {
-                // Delete movie from db logic
-                var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
-                context.Movies.Remove(movie);
-                context.SaveChanges();
+                var existMovie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+                if (existMovie != null)
+                {
+                    existMovie.Title = value.Title;
+                    existMovie.Genre = value.Genre;
+                    existMovie.DirectorName = value.DirectorName;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
+            return Ok();
         }
 
+        // DELETE api/values/5
+        public void Delete(int id)
+        {
+            // Delete movie from db logic
+            var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+            context.Movies.Remove(movie);
+            context.SaveChanges();
+        }
     }
+
+}
