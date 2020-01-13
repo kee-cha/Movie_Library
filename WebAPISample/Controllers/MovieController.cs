@@ -18,12 +18,25 @@ namespace WebAPISample.Controllers
         }
 
         // GET api/values
-        public IEnumerable<string> Get()
+        public IHttpActionResult Get()
         {
             // Retrieve all movies from db logic
-            context.Movies.ToList();
-            context.SaveChanges();
-            return new string[] { "movie1 string", "movie2 string" };
+            IList<Movies> movies = null;
+            using (var context = new ApplicationDbContext())
+            {
+                movies = context.Movies.Select(m => new Movies()
+                {
+                    Title = m.Title,
+                    Genre = m.Genre,
+                    DirectorName = m.DirectorName
+                }).ToList();
+                context.SaveChanges();
+            }
+            if (movies.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(movies);
         }
 
         // GET api/values/5
@@ -31,6 +44,11 @@ namespace WebAPISample.Controllers
         {
             // Retrieve movie by id from db logic
             var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            
             return Ok(movie);
         }
 
@@ -83,12 +101,20 @@ namespace WebAPISample.Controllers
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             // Delete movie from db logic
-            var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
-            context.Movies.Remove(movie);
-            context.SaveChanges();
+            if (id <= 0)
+            {
+                return BadRequest("Not a valid id");
+            }
+            using (var context = new ApplicationDbContext())
+            {
+                var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+                context.Entry(movie).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
+            }
+            return Ok();
         }
     }
 
