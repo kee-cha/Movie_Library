@@ -18,18 +18,32 @@ namespace WebAPISample.Controllers
         }
 
         // GET api/values
-        public IEnumerable<string> Get()
+        public IHttpActionResult Get()
         {
             // Retrieve all movies from db logic
-            context.Movies.ToList();
-            context.SaveChanges();
-            return new string[] { "movie1 string", "movie2 string" };
+            IList<Movies> movies = null;
+            using (var context = new ApplicationDbContext())
+            {
+                movies = context.Movies.Select(m => new Movies()
+                {
+                    Title = m.Title,
+                    Genre = m.Genre,
+                    DirectorName = m.DirectorName
+                }).ToList();
+                context.SaveChanges();
+            }
+            if (movies.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(movies);
         }
 
         // GET api/values/5
         public IHttpActionResult Get(int id)
         {
             // Retrieve movie by id from db logic
+<<<<<<< HEAD
             IList<Movies> movies = null;
             
             using (var mList = new ApplicationDbContext())
@@ -47,6 +61,15 @@ namespace WebAPISample.Controllers
                 return NotFound();
             }
             return Ok();
+=======
+            var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(movie);
+>>>>>>> 614a10ff1dc2f3f3bf3d32be6a497690b4c4be51
         }
 
         // POST api/values
@@ -98,6 +121,7 @@ namespace WebAPISample.Controllers
         }
 
         // DELETE api/values/5
+<<<<<<< HEAD
         public void Delete(int id, [FromBody]Movies value)
         {
             // Delete movie from db logic
@@ -105,6 +129,22 @@ namespace WebAPISample.Controllers
             var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
             context.Movies.Remove(movie);
             context.SaveChanges();
+=======
+        public IHttpActionResult Delete(int id)
+        {
+            // Delete movie from db logic
+            if (id <= 0)
+            {
+                return BadRequest("Not a valid id");
+            }
+            using (var context = new ApplicationDbContext())
+            {
+                var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+                context.Entry(movie).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
+            }
+            return Ok();
+>>>>>>> 614a10ff1dc2f3f3bf3d32be6a497690b4c4be51
         }
     }
 
