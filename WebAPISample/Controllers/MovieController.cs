@@ -30,8 +30,23 @@ namespace WebAPISample.Controllers
         public IHttpActionResult Get(int id)
         {
             // Retrieve movie by id from db logic
-            var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
-            return Ok(movie);
+            IList<Movies> movies = null;
+            
+            using (var mList = new ApplicationDbContext())
+            {
+                movies = mList.Movies.Include("Title")
+                    .Select(m => new Movies()
+                    {
+                        Title = m.Title,
+                        Genre = m.Genre,
+                        DirectorName = m.DirectorName
+                    }).ToList<Movies>();
+            }
+            if(movies.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
 
         // POST api/values
@@ -83,9 +98,10 @@ namespace WebAPISample.Controllers
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public void Delete(int id, [FromBody]Movies value)
         {
             // Delete movie from db logic
+
             var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
             context.Movies.Remove(movie);
             context.SaveChanges();
