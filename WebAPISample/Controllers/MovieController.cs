@@ -61,7 +61,7 @@ namespace WebAPISample.Controllers
             movie.DirectorName = value.DirectorName;
             context.Movies.Add(movie);
             context.SaveChanges();
-            return Ok();
+            return Ok(context.Movies);
         }
 
         // PUT api/values/5
@@ -99,7 +99,7 @@ namespace WebAPISample.Controllers
             var movie = context.Movies.Where(m => m.MovieId == id && m.Title == value.Title).SingleOrDefault();
             context.Movies.Remove(movie);
             context.SaveChanges();
-            return Ok();
+            return Ok(context.Movies);
         }
 
     }
