@@ -222,9 +222,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001132000549_initialMigration.cs" />
-    <Compile Include="Migrations\202001132000549_initialMigration.Designer.cs">
-      <DependentUpon>202001132000549_initialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202001132137290_thing.cs" />
+    <Compile Include="Migrations\202001132137290_thing.Designer.cs">
+      <DependentUpon>202001132137290_thing.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -342,12 +342,12 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001132000549_initialMigration.resx">
-      <DependentUpon>202001132000549_initialMigration.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <EmbeddedResource Include="Migrations\202001132137290_thing.resx">
+      <DependentUpon>202001132137290_thing.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

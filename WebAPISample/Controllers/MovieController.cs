@@ -21,7 +21,9 @@ namespace WebAPISample.Controllers
         public IHttpActionResult Get()
         {
             // Retrieve all movies from db logic
+
             List<Movies> movies;
+
             movies = context.Movies.ToList();
             context.SaveChanges();
             if (movies.Count == 0)
@@ -35,6 +37,7 @@ namespace WebAPISample.Controllers
         public IHttpActionResult Get(int id)
         {
             // Retrieve movie by id from db logic
+
             var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
             if (movie == null)
             {
@@ -42,6 +45,7 @@ namespace WebAPISample.Controllers
             }
 
             return Ok(movie);
+
         }
 
         // POST api/values
@@ -58,7 +62,9 @@ namespace WebAPISample.Controllers
             movie.DirectorName = value.DirectorName;
             context.Movies.Add(movie);
             context.SaveChanges();
+
             return Ok(movie);
+
         }
 
         // PUT api/values/5
@@ -70,6 +76,7 @@ namespace WebAPISample.Controllers
                 return BadRequest("Not a valid input");
             }
             var existMovie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
+
             if (existMovie != null)
             {
                 existMovie.Title = value.Title;
@@ -86,18 +93,21 @@ namespace WebAPISample.Controllers
         }
 
         // DELETE api/values/5
+
         public IHttpActionResult Delete(int id,[FromBody]Movies value)
+
         {
             // Delete movie from db logic
             if (id <= 0)
             {
-                return BadRequest("Not a valid id");
+                return BadRequest("Not A Valid ID");
             }
             var movie = context.Movies.Where(m => m.MovieId == id && m.Title == value.Title).SingleOrDefault();
             context.Movies.Remove(movie);
             context.SaveChanges();
             return Ok(context.Movies);
         }
+
     }
 
 }
