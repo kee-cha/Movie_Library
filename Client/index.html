@@ -9,15 +9,28 @@
 <div id="response">
     <pre></pre>
 </div>
-
+<h2>Add New Movie</h2>
 <form id="my-form">
     <input type="text" name="title" placeholder="Title?" />
     <input type="text" name="genre" placeholder="Genre?"/>
     <input type="text" name="director" placeholder="Director's name?" />
     <button type="submit">Submit</button>
 </form>
+<br>
+<br>
+<h2>My Movies</h2>
+<div align = "middle">
+  <table style="width:100%" id = "movieTable">
+    <tr>
+      <th>Title</th>
+      <th>Movie Genre</th> 
+      <th>Director's Name</th>
+    </tr>
+    <tbody id= "table"></tbody>
+  </table>
+</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script></script>
 <script type="text/javascript" src="./app.js"></script>
 </body>
 </html>
