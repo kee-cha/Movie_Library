@@ -21,36 +21,6 @@
         });
         e.preventDefault();
     }
-    $('#add-movie').submit(processForm);
-    function newTable() {
-        
-        getTableValue(function (i, value) {
-            if (i === 0) {
-            } else {
-                dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td></tr>')
-            }
-        });
-    }
-    function getTableValue(method) {
-        $.ajax({
-            url: 'https://localhost:44352/api/Movie',
-            dataType: 'json',
-            type: 'Get',
-            contentType: 'application/json',
-            success: function (data, textStatus, jqXhr) {
-                $.each(data, method);
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
-        });
-    }
-    document.getElementById("table").innerHTML = newTable();
-})(jQuery);
-
-
-
-
 
     $('#add-movie').submit(processForm);
 
@@ -70,8 +40,6 @@
             }
         });
     }
-
-
     document.getElementById("table").innerHTML = getTableValue();
 })(jQuery);
 
