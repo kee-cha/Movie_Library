@@ -11,7 +11,7 @@ var $dataTable = $('#movieTable');
         $.ajax({
             url: 'https://localhost:44352/api/Movie',
             dataType: 'json',
-            type: 'Post',
+            method: 'Post',
             contentType: 'application/json',
             data: JSON.stringify(dict),
             success: function (data) {
@@ -34,7 +34,7 @@ function getTableValue() {
         $.ajax({
             url: 'https://localhost:44352/api/Movie',
             dataType: 'json',
-            type: 'Get',
+            method: 'Get',
             contentType: 'application/json',
             success: function (movie) {
                 $.each(movie, function (i, value) {
