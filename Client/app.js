@@ -52,3 +52,27 @@
 
 
 
+    $('#add-movie').submit(processForm);
+
+    function getTableValue() {
+        $.ajax({
+            url: 'https://localhost:44352/api/Movie',
+            dataType: 'json',
+            type: 'Get',
+            contentType: 'application/json',
+            success: function (data, textStatus, jqXhr) {
+                $.each(data, function (i, value) {
+                              dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td></tr>')
+            });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+
+    document.getElementById("table").innerHTML = getTableValue();
+})(jQuery);
+
+

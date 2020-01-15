@@ -21,7 +21,8 @@ namespace WebAPISample.Controllers
         public IHttpActionResult Get()
         {
             // Retrieve all movies from db logic
-            List<Movies> movies = null;
+
+            List<Movies> movies;
 
             movies = context.Movies.ToList();
             context.SaveChanges();
@@ -61,7 +62,9 @@ namespace WebAPISample.Controllers
             movie.DirectorName = value.DirectorName;
             context.Movies.Add(movie);
             context.SaveChanges();
-            return Ok(context.Movies);
+
+            return Ok(movie);
+
         }
 
         // PUT api/values/5
@@ -85,11 +88,14 @@ namespace WebAPISample.Controllers
             {
                 return NotFound();
             }
-            return Ok();
+
+            return Ok(existMovie);
         }
 
         // DELETE api/values/5
-        public IHttpActionResult Delete(int id, [FromBody]Movies value)
+
+        public IHttpActionResult Delete(int id,[FromBody]Movies value)
+
         {
             // Delete movie from db logic
             if (id <= 0)
