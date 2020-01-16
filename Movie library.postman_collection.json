@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "466c0625-4b86-4b55-94f2-bb08dee22055",
+		"name": "Movie library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:44352/api/Movie/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"Title\": \"How High\",\r\n        \"Genre\": 'Comedy',\r\n        \"DirectorName\": 'IdontKnow'\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44352/api/Movie/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44352",
+					"path": [
+						"api",
+						"Movie",
+						""
+					]
+				},
+				"description": "Get request for all movies in library"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44352/api/Movie/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n\r\n        \"Title\": \"Avengers Infinity War\",\r\n        \"Genre\": \"Sci-Fi\",\r\n        \"DirectorName\": \"Joe Russo\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44352/api/Movie/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44352",
+					"path": [
+						"api",
+						"Movie",
+						""
+					]
+				},
+				"description": "added avengers movie to movie database"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44352/api/Movie/1061",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44352/api/Movie/1061",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44352",
+					"path": [
+						"api",
+						"Movie",
+						"1061"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44352/api/Movie/1074",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"MovieId\": 10,\r\n        \"Title\": \"Inception\",\r\n        \"Genre\": null,\r\n        \"DirectorName\": null\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44352/api/Movie/1074",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44352",
+					"path": [
+						"api",
+						"Movie",
+						"1074"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:44352/api/Movie/1071",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"Title\": \"Mary Poppins\",\r\n        \"Genre\": \"Sci-Fi\",\r\n        \"DirectorName\": \"Joe Russo\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44352/api/Movie/1071",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44352",
+					"path": [
+						"api",
+						"Movie",
+						"1071"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
