@@ -12,9 +12,9 @@
             dataType: 'json',
             method: 'Post',
             contentType: 'application/json',
-            data: JSON.stringify(dict,data),
-            success: function (dict,data, textStatus, jQxhr) {
-                dataTable.append('<tr><td>' + dict.Title + '</td><td>' + dict.Genre + '</td><td>' + dict.DirectorName + '</td></tr>')
+            data: JSON.stringify(dict),
+            success: function (data, textStatus, jQxhr) {
+                dataTable.append('<tr><td>' + dict.Title + '</td><td>' + dict.Genre + '</td><td>' + dict.DirectorName + '</td><td><button type="submit">Edit</button></td></tr>')
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
@@ -32,8 +32,8 @@
             method: 'Get',
             contentType: 'application/json',
             success: function (data, textStatus, jqXhr) {
-                $.each(data, function (i, value) {
-                dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td></tr>')
+                $.each(data,function (i, value) {
+                dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td><td><button onclick ="updateTableValue()">Edit</button></td></tr>')
             });
             },
             error: function (jqXhr, textStatus, errorThrown) {
@@ -41,23 +41,28 @@
             }
         });
     }
-    document.getElementById("table").innerHTML = getTableValue();
+    getTableValue();
 
 
 
     function updateTableValue(){
         $.ajax({
-            url: 'https://localhost:44352/api/Movie',
+            url: 'https://localhost:44352/api/Movie' + MovieId,
             dataType: 'json',
             method: 'Put',
             contentType: 'application/json',
             data: JSON.stringify(dict), 
             success: function (data) {
-
+                $.each(data,function (i, value) {
+                    dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td><td><button onclick ="updateTableValue()">Edit</button></td></tr>')
+                });
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
             }
-
         });    
     }
+    updateTableValue();
 })(jQuery);
 
 
