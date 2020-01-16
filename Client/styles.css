@@ -1,5 +1,6 @@
 body{
     background-image: url("movietheaterbackground.jpg");
+    background-size: cover;
     font-weight: bolder;
 }
 table{
@@ -8,6 +9,7 @@ table{
     border: solid;
     border-color: black;
     opacity: 87%;
+    width:75%;
 }
 td{
     border: solid;
@@ -31,4 +33,11 @@ button{
 }
 th{
     color: black;
+}
+img{
+    border: solid;
+    border: 15px;
+    padding: 10px;
+    background-color: black;
+    opacity: 75%;
 }

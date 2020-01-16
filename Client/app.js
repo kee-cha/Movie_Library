@@ -1,5 +1,7 @@
 var $dataTable = $('#movieTable');
+
 (function ($) {
+    $('#add-movie').submit(processForm);
 
     function processForm(e) {
         $(document).ready();{
@@ -9,12 +11,12 @@ var $dataTable = $('#movieTable');
                 DirectorName: this["director"].value
             };
             $.ajax({
-                url: 'https://localhost:44352/api/Movie',
+                url: 'https://localhost:44352/api/Movie/',
                 dataType: 'json',
-                method: 'Post',
+                type: 'Post',
                 contentType: 'application/json',
                 data: JSON.stringify(dict),
-                success: function (data) {
+                success: function (data) {                    
                     $('#movieTable').empty();
                     getTableValue();
                 },
@@ -23,8 +25,7 @@ var $dataTable = $('#movieTable');
                 }
             });
             e.preventDefault();
-        }
-        $('#add-movie').submit(processForm);
+        }                
     }
 
 
@@ -107,9 +108,9 @@ function getOneMovie(id) {
                 document.getElementById("add-movie").style.display = "none";
                 $('#movieTable').empty();
                 $dataTable.append('<tr align = "middle">'+
-                '<td><input type="text" name="title" placeholder="' + data.Title + ' "id="mT"/></td>'+
-                '<td><input type="text" name="genre" placeholder="' + data.Genre + '" id="gT"/></td>'+
-                '<td> <input type="text" name="director" placeholder="' + data.DirectorName + '" id="dN"/></td>'+
+                '<td><input type="text" name="title" value=" ' + data.Title + '"id="mT"/></td>'+
+                '<td><input type="text" name="genre" value="' + data.Genre + '" id="gT"/></td>'+
+                '<td> <input type="text" name="director" value="' + data.DirectorName + '" id="dN"/></td>'+
                 '<td><button onclick = "updateTableValue(' + data.MovieId + ')">update</button></td>'+
                 '<td><button onclick = "deleteMovie(' + data.MovieId + ')">Delete</button></td>'+
                 '<td><button onclick = "getTableValue()">Back to List</button></td>'+
