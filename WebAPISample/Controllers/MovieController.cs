@@ -94,7 +94,7 @@ namespace WebAPISample.Controllers
 
         // DELETE api/values/5
 
-        public IHttpActionResult Delete(int id,[FromBody]Movies value)
+        public IHttpActionResult Delete(int id)
 
         {
             // Delete movie from db logic
@@ -102,7 +102,7 @@ namespace WebAPISample.Controllers
             {
                 return BadRequest("Not A Valid ID");
             }
-            var movie = context.Movies.Where(m => m.MovieId == id && m.Title == value.Title).SingleOrDefault();
+            var movie = context.Movies.Where(m => m.MovieId == id).SingleOrDefault();
             context.Movies.Remove(movie);
             context.SaveChanges();
             return Ok(context.Movies);

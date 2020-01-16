@@ -1,7 +1,8 @@
-(function ($)
-{
-    var dataTable = $('#movieTable');
-    function processForm(e){
+var $dataTable = $('#movieTable');
+(function ($) {
+  
+    function processForm(e) {
+
         var dict = {
             Title: this["title"].value,
             Genre: this["genre"].value,
@@ -13,56 +14,84 @@
             method: 'Post',
             contentType: 'application/json',
             data: JSON.stringify(dict),
-            success: function (data, textStatus, jQxhr) {
-                dataTable.append('<tr><td>' + dict.Title + '</td><td>' + dict.Genre + '</td><td>' + dict.DirectorName + '</td><td><button type="submit">Edit</button></td></tr>')
+            success: function (data) {
+                $('#movieTable').empty();
+                getTableValue();
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
+                alert('error adding movies');
             }
         });
         e.preventDefault();
     }
-    
     $('#add-movie').submit(processForm);
 
-    function getTableValue(){       
+    
+    getTableValue();
+})(jQuery);
+function getTableValue() {
+    $(document).ready(); {
         $.ajax({
             url: 'https://localhost:44352/api/Movie',
             dataType: 'json',
             method: 'Get',
             contentType: 'application/json',
-            success: function (data, textStatus, jqXhr) {
-                $.each(data,function (i, value) {
-                dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td><td><button onclick ="updateTableValue()">Edit</button></td></tr>')
-            });
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
-        });
-    }
-    getTableValue();
-
-
-
-    function updateTableValue(){
-        $.ajax({
-            url: 'https://localhost:44352/api/Movie' + MovieId,
-            dataType: 'json',
-            method: 'Put',
-            contentType: 'application/json',
-            data: JSON.stringify(dict), 
-            success: function (data) {
-                $.each(data,function (i, value) {
-                    dataTable.append('<tr><td>' + value.Title + '</td><td>' + value.Genre + '</td><td>' + value.DirectorName + '</td><td><button onclick ="updateTableValue()">Edit</button></td></tr>')
+            success: function (movie) {
+                $.each(movie, function (i, value) {
+                    $dataTable.append('<tr align = "middle"><td>' + value.Title + 
+                    '</td><td>' + value.Genre + 
+                    '</td><td>' + value.DirectorName + 
+                    '</td><td><button onclick = "updateTableValue('+value.MovieId+')">Edit</button>'+
+                    '</td><td><button onclick = "deleteMovie('+value.MovieId+')">Delete</button></td></tr>')
                 });
             },
             error: function (jqXhr, textStatus, errorThrown) {
+                alert('error loading movies');
+            }
+        })
+    };
+}
+function updateTableValue(id) {
+    var movie = {
+        Title: $('#titleName').val(),
+        Genre: $('#genreName').val(),
+        DirectorName: $('#directorName').val(),
+        MovieId: id
+    }
+    $(document).ready(); {
+        $.ajax({
+            url: 'https://localhost:44352/api/Movie/'+id,
+            dataType: 'json',
+            type: 'Put',
+            contentType: 'application/json',
+            data: JSON.stringify(movie),
+            success: function (data, textStatus, jqXhr) {                
+                $('#movieTable').empty();
+                getTableValue();
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
-        });    
-    }
-    updateTableValue();
-})(jQuery);
+        })
+    };
+}
+function deleteMovie(id){
+    $(document).ready(); {
+        $.ajax({
+            url: 'https://localhost:44352/api/Movie/'+id,
+            dataType: 'json',
+            type: 'Delete',
+            contentType: 'application/json',
+            data: id,
+            success: function (data, textStatus, jqXhr) {                
+                $('#movieTable').empty();
+                getTableValue();
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        })
+    };
+}
 
 
