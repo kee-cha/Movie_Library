@@ -38,6 +38,7 @@ function getTableValue() {
             method: 'Get',
             contentType: 'application/json',
             success: function (movie) {
+                $dataTable.empty();
                 $.each(movie, function (i, value) {
                     $dataTable.append('<tr align = "middle"><td>' + value.Title +'</td>'+
                     '<td>' + value.Genre +'</td>'+
@@ -101,8 +102,7 @@ function getOneMovie(id) {
             dataType: 'json',
             type: 'Get',
             contentType: 'application/json',
-            success: function (data, textStatus, jqXhr) {
-                alert('success')
+            success: function (data, textStatus, jqXhr) {                
                 document.getElementById("pageHeader").style.display = "none";
                 document.getElementById("add-movie").style.display = "none";
                 $('#movieTable').empty();
@@ -112,6 +112,7 @@ function getOneMovie(id) {
                 '<td> <input type="text" name="director" placeholder="' + data.DirectorName + '" id="dN"/></td>'+
                 '<td><button onclick = "updateTableValue(' + data.MovieId + ')">update</button></td>'+
                 '<td><button onclick = "deleteMovie(' + data.MovieId + ')">Delete</button></td>'+
+                '<td><button onclick = "getTableValue()">Back to List</button></td>'+
                 '</tr>')
             },
             error: function (jqXhr, textStatus, errorThrown) {
